@@ -1,0 +1,229 @@
+<?php
+
+?>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="kontakta.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    </head>
+        <body>
+            <header>
+                <a href="huvudsida.html" class="logo"><img style="height: 3.5em; width: 3.5em;" src="https://cdn-icons-png.flaticon.com/512/616/616545.png"></a>
+                <div class="group">
+                    <ul class="navigation">
+                        <li><a href="huvudsida.html">Hem</a></li>
+                        <li><a href="galleri.html">Galleri</a></li>
+                        <li><a href="kontakta.html">Kontakta oss</a></li>
+                    </ul>
+                    <div class="search">
+                        <span class="icon">
+                            <ion-icon name="search-outline" class="sökBtn"></ion-icon>
+                            <ion-icon name="close-outline" class="stängBtn"></ion-icon>
+                        </span>
+                    </div>
+                    <ion-icon name="menu-outline" class="menyKnapp"></ion-icon>
+                </div>
+                <div class="searchBox">
+                  <input type="text" placeholder="Sök här..">
+              </div>
+            </header>
+            <div id="banner" class="banner">
+                <h1 id="h1">Kontakta</h1>
+            </div>
+            <div class="container">
+                <form action="" method="post"> 
+                    <i class="fas fa-paper-plane" id="telegram"></i>
+                    
+
+                <div class="input">
+                    <div class="input-group">
+                       <label>Fullständigt namn</label>
+                       <input type="text" placeholder="Skriv ditt namn här..." id="contact-name" onkeyup="validateName()">  
+                       <span id="name-error"></span> 
+                    </div>
+
+                    <div class="input-group">
+                        <label>Telefon Nummer</label>
+                        <input type="tel" placeholder="123 456 78 90" id="contact-phone" onkeyup="validatePhone()">
+                        <span id="phone-error"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Skriv email här..." id="contact-email" onkeyup="validateEmail()">
+                        <span id="email-error"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Ditt meddelande</label>
+                        <textarea rows="5" placeholder="Skriv ditt meddelande..." id="contact-message" onkeyup="validateMessage()"></textarea>
+                        <span id="message-error"></span>
+                    </div>
+                    <button onclick='return validateForm()'>Skicka</button>
+                    <span id="submit-error"></span>
+                </div>
+                </form>
+            </div>
+
+            <div class="toggle-container">
+                <input type="checkbox" id="switch" name="theme" class="inputSwitch" /><label for="switch" class="lblSwitch">Toggle</label>
+            </div>
+            <button id="scroll-top-button" class="scroll-top-button" type="button" onclick="scrollToTop()">
+                <ion-icon name="arrow-up-outline"></ion-icon>
+             </button>
+
+            <footer>
+                <div class="footer_container">
+                    <div class="logo"> <img style="height: 3.5em; width: 3.5em;" src="https://cdn-icons-png.flaticon.com/512/616/616545.png"></div>
+                    <div class="social_media">
+                      <a href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#"><i class="fab fa-twitter"></i></a>
+                      <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+              </footer>
+
+            <script type="text/javascript" src="huvudsida.js"></script>
+              <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+              <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+              <script>
+                /*javascript för banner vid scroll*/
+                const h1 = document.getElementById("h1"),
+                  banner = document.getElementById("banner"),
+                 button = document.getElementById("button");
+      
+                const onScroll = (event) =>{
+                    const scrollPosition= event.target.scrollingElement.scrollTop;
+                
+                if(scrollPosition>150){
+                    banner.style.backgroundSize = "cover"
+                    banner.style.bottom= "0px";
+                    h1.style.opacity= 0;
+                    h1.style.translate="0 -50px";
+                    h1.style.scale="0.9";
+                    button.style.opacity=0;
+                    button.style.translate="0 -40px";
+                    button.style.scale="0.8";
+                } else{
+                    banner.style.backgroundSize="cover";
+                    h1.style.opacity=1;
+                    h1.style.translate=0;
+                    h1.style.scale=1;
+                    button.style.opacity=1;
+                    button.style.translate=0;
+                    button.style.scale=1;
+                }
+              };
+              document.addEventListener("scroll", onScroll);
+            </script>
+            <script>
+                /* javascript för validation*/
+                var nameError = document.getElementById('name-error');
+                var phoneError = document.getElementById('phone-error');
+                var emailError = document.getElementById('email-error');
+                var messageError = document.getElementById('message-error');
+                var submitError = document.getElementById('submit-error');
+
+                function validateName(){
+                    var name = document.getElementById('contact-name').value;
+
+                    if(name.length == 0){
+                        nameError.innerHTML = "Namn är nödvändigt";
+                    }
+                    if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)){
+                        nameError.innerHTML = "Skriv ditt fullständiga namn";
+                        return false;
+                    }
+                    nameError.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    return true;
+                }
+
+                function validatePhone(){
+                    var phone = document.getElementById('contact-phone').value;
+
+                    if(phone.length == 0){
+                        phoneError.innerHTML = 'Telefon nr är nödvändigt';
+                        return false;
+                    }
+                    if(phone.length !== 10){
+                        phoneError.innerHTML = 'Telefon nr ska vara 10-siffrigt';
+                        return false;
+                    }
+                    if(!phone.match(/^[0-9]{10}$/)){
+                        phoneError.innerHTML = 'Enbart siffror tack';
+                        return false;
+                    }
+                    phoneError.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    return true;
+                }
+
+                function validateEmail(){
+                    var email = document.getElementById('contact-email').value;
+                    if(email.length == 0){
+                        emailError.innerHTML = "Mailadress är nödvändigt";
+                        return false;
+
+                    }
+                    if(!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)){
+                        emailError.innerHTML = "Mailadress ej giltig";
+                        return false;
+                    }
+
+                    emailError.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    return true;
+                }
+
+                function validateMessage(){
+                    var message = document.getElementById('contact-message').value;
+                    var required = 30;
+                    var left = required - message.length;
+
+                    if(left > 0){
+                        messageError.innerHTML = left + " mer karaktärer nödvändigt";
+                        return false;
+                    }
+                    messageError.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    return true;
+                }
+                function validateForm(){
+                    if(!validateName() || !validatePhone() || !validateEmail() || !validateMessage()){
+                        submitError.style.display = 'block';
+                        submitError.innerHTML = 'Fixa dina fel för att skicka';
+                        setTimeout(function(){submitError.style.display = 'none';}, 5000);
+                        return false;
+                    }
+                }
+
+            </script>
+            <script>
+                /*javascript för skroll knapp*/
+                const scrollTopButton = document.querySelector("#scroll-top-button");
+      
+                const Scroll = (event) => {
+                    const scrollPosition = 
+                    event
+                    .target
+                    .scrollingElement
+                    .scrollTop;
+      
+                    scrollTopButton
+                    .classList
+                    .toggle("visible", scrollPosition>0);
+                };
+      
+                const scrollToTop = () => {
+                    window.scrollTo({
+                        top: 0, behavior: "smooth"
+                    });
+                };
+                document.addEventListener("scroll", Scroll);
+            </script>
+            <script src="lightdarkmode.js"></script>
+            </body>  
+</html>
